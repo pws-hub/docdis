@@ -1,0 +1,24 @@
+
+class { onCreate(){ this.state = { locale: '', text: '' } } }
+
+$ component.once( 'mount', () => {
+	// Pipe to context component in <Extension/>
+	const 
+	context = component.___context[1],
+	translate = () => {
+		const originalText = input.text || ( typeof input.renderBody == 'function' ? input.renderBody(out) : '' )
+		component.setState({
+			locale: context.data.locale,
+			text: context.data.RenderLocale( originalText )
+		})
+	}
+	
+	context.on( 'update', translate )
+	translate()
+})
+
+<span data-lang=state.locale
+			class=input.class
+			style="color:inherit">
+	${state.text}
+</span>

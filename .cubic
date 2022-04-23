@@ -1,0 +1,20 @@
+{
+	"language": "marko~4",
+	"platforms": [
+		"multipple~2.0"
+	],
+	"setup": {
+		"sample": "@git/lib:marko:multipple.micro~1.0.0",
+		"sandbox": "@git/lib:marko:multipple.sandbox~1.0.0",
+		"test": "@npm/lib:multipple:marko.unit-test~1.0.0"
+	},
+	"emulator": {
+		"model": "EIS8",
+		"version": "1.0.0",
+		"env": {
+			"NODE_ENV": "development",
+			"HOST": "localhost",
+			"PORT": 1300
+		}
+	}
+}

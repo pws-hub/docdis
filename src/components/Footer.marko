@@ -1,0 +1,21 @@
+
+<Row.m-0.d-flex.align-items-center.border-top>
+  <@col.col.px-0>
+    <if( input.prev )>
+      <div.d-inline-flex.align-items-center.py-2.cursor-pointer 
+          on-click( () => component.emit('navigate', input.prev.path ) )>
+        <Bx.font-large-1.px-1 type="chevron-left"/>
+        <span.font-medium-2>${input.prev.title}</span>
+      </div>
+    </if>
+  </@col>
+  <@col.col.px-0.text-right>
+    <if( input.next )>
+      <div.d-inline-flex.align-items-center.py-2.cursor-pointer
+          on-click( () => component.emit('navigate', input.next.path ) )>
+        <span.font-medium-2>${input.next.title}</span>
+        <Bx.font-large-1.px-1 type="chevron-right"/>
+      </div>
+    </if>
+  </@col>
+</Row>

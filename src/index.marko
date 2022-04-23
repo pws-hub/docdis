@@ -1,0 +1,183 @@
+
+import { navigation, feedbacks, infos } from '../docs/manifest.json'
+
+static const paths = [
+  {
+    path: '/',
+    title: 'Docs'
+  },
+  {
+    path: '/features',
+    title: 'Features'
+  },
+  {
+    path: '/getting-started',
+    title: 'Getting Started'
+  }
+]
+static const navControl = {
+  prev: {
+    title: 'Introduction',
+    path: '/'
+  },
+  next: {
+    title: 'Pipelines',
+    path: '/features/pipelines'
+  }
+}
+
+class {
+  onCreate({ Declare }){
+    Declare(this)
+    this.state = {
+      title: 'Getting Started'
+    }
+  }
+}
+
+$ const containerType = 'compact'
+
+<div#docdis.vh-100.theme-bg>
+  <div.overflow-scroll.h-100 class=`container-${containerType}`>
+    <Row>
+      <!-- Navigation Block -->
+      <@col qs="d-none" hs="d-none" fs="col-3" ns="col-3">
+        <div.section-block.position-sticky.top-0.px-2>
+          <Nav map=navigation.docsmap/>
+        </div>
+      </@col>
+
+      <!-- Body Block -->
+      <@col>
+        <div.section-block.position-sticky.top-0.theme-bg>
+          <Breadcumb paths=paths/>
+        </div>
+
+        <div.content-body>
+          <h1.mt-0>${state.title}</h1>
+          <br>
+
+          <div>
+            <p>Unlike other tools you may have used, <code>turbo</code> can cache emitted files and logs of previously run commands. It does this so it can skip work that's already been done, yielding incredible time savings.</p>
+            <p>By default, <a href="../reference/command-line-reference#turbo-run-task1-task2-1"><code>turbo run</code></a> considers any files emitted in the <code>dist/**</code> or <code>build/**</code> folders of a package task (defined in that package's <code>package.json</code> <code>scripts</code> object) to be cacheable. In addition, <code>turbo run</code> treats logs (<code>stderr</code> and<code>stdout</code>), which are automatically written to <code>.turbo/run-&lt;command&gt;.log</code>, as a cacheable artifact. By treating logs as artifacts, you can cache just about any command in your Turborepo.</p>
+            <h2><span class="subheading-anchor" id="configuring-cache-outputs"></span><a href="#configuring-cache-outputs" class="text-current no-underline no-outline">Configuring Cache Outputs<span class="anchor-icon" aria-hidden="true">#</span></a></h2>
+            <p>Using <a href="../reference/configuration#pipeline"><code>pipeline</code></a>, you can configure cache conventions across your Turborepo.</p>
+            <p>To override the default cache output behavior, pass an array of globs to a <a href="../reference/configuration#outputs"><code>pipeline.&lt;task&gt;.outputs</code></a> array. Any file that satisfies the glob patterns for a task will be treated as artifact.</p>
+            
+            <p>If your task does not emit any files (e.g. unit tests with Jest), set <code>outputs</code> to an empty array (i.e. <code>[]</code>). Turborepo will automagically cache the logs for you.</p>
+            <div class="bg-blue-100 text-blue-800 dark:text-blue-300 dark:bg-blue-200 dark:bg-opacity-10 flex rounded-lg callout mt-6"><div class="py-2 pl-3 pr-2 text-xl select-none" style="font-family: &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;;"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="w-5 h-5 mt-1"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg></div><div class="py-2 pr-4"><p>Pro Tip for caching ESLint: You can get a cacheable pretty terminal output
+            (even for non-errors) by setting <code>TIMING=1</code> variable before <code>eslint</code>. Learn
+            more over at the <a target="_blank" rel="noreferrer" href="https://eslint.org/docs/1.0.0/developer-guide/working-with-rules#per-rule-performance">ESLint
+            docs</a></p></div></div>
+            <p>With the above pipeline configuration and proper output folders, if you were to run:</p>
+            <div data-rehype-pretty-code-fragment="" data-nextra-code=""><pre><code data-language="shell" data-theme="default"><span class="line"><span style="color: var(--shiki-token-comment);"># Run `build` npm script in all packages and apps and cache the output.</span></span>
+            <span class="line"><span style="color: var(--shiki-color-text);">turbo run build </span><span style="color: var(--shiki-token-function);">test</span></span></code></pre></div>
+            <p>And open up your <code>node_modules/.cache/turbo</code>, you should see the cached artifacts.</p>
+            <h2><span class="subheading-anchor" id="turn-off-caching"></span><a href="#turn-off-caching" class="text-current no-underline no-outline">Turn off caching<span class="anchor-icon" aria-hidden="true">#</span></a></h2>
+            <p>Sometimes you really don't need or want this cache behavior (such as when you're doing something with live reloading such as <code>next dev</code> or <code>react-scripts start</code>). To entirely disable caching, append <code>--no-cache</code> to any command:</p>
+            <div data-rehype-pretty-code-fragment="" data-nextra-code=""><pre><code data-language="shell" data-theme="default"><span class="line"><span style="color: var(--shiki-token-comment);"># Run `dev` npm script in all packages and apps in parallel,</span></span>
+            <span class="line"><span style="color: var(--shiki-token-comment);"># but don't cache the output</span></span>
+            <span class="line"><span style="color: var(--shiki-color-text);">turbo run dev --parallel --no-cache</span></span></code></pre></div>
+            <p>You can also always disable caching on a specific task by setting <code>cache</code> to <code>false</code> in your Turborepo <a href="../reference/configuration#pipeline-1"><code>pipeline</code></a>:</p>
+            
+            <h2><span class="subheading-anchor" id="alter-caching-based-on-environment-variables-and-files"></span><a href="#alter-caching-based-on-environment-variables-and-files" class="text-current no-underline no-outline">Alter Caching Based on Environment Variables and Files<span class="anchor-icon" aria-hidden="true">#</span></a></h2>
+            <p>For some tasks, you may not want a cache miss if an irrelevant file has changed. For instance, updating <code>README.md</code>
+            might not need to trigger a cache miss for the <code>test</code> task. You can use <code>inputs</code> to restrict the set
+            of files <code>turbo</code> considers for a particular task. In this case, only consider <code>.ts</code> and <code>.tsx</code> files relevant for
+            determining a cache hit on the <code>test</code> task:</p>
+            
+            <p>When you use <code>turbo</code> with tools which inline environment variables at build time (e.g. Next.js or Create React App), it is important you tell <code>turbo</code> about it. Otherwise, you could ship a cached artifact with the wrong environment variables!</p>
+            <p>Luckily, you can control <code>turbo</code>'s cache fingerprinting (a.k.a. hashing) behavior based on the values of both environment variables and the contents of files:</p>
+            <ul>
+            <li>Including environment variables in a <code>dependsOn</code> in your <code>pipeline</code> definition prefixed by a <code>$</code> will impact the cache fingerprint on a per-task or per-package-task basis.</li>
+            <li>Including environment variables in <code>globalDependencies</code> list prefixed by a <code>$</code> will impact the cache fingerprint of <em>all</em> tasks.</li>
+            <li>Including files or globs of files in <code>globalDependencies</code> will impact the cache fingerprint of <em>all</em> tasks.</li>
+            <li>The value of any environment variable that includes <code>THASH</code> in its name will impact the cache fingerprint of <em>all</em> tasks.</li>
+            </ul>
+            
+            <div class="bg-blue-100 text-blue-800 dark:text-blue-300 dark:bg-blue-200 dark:bg-opacity-10 flex rounded-lg callout mt-6"><div class="py-2 pl-3 pr-2 text-xl select-none" style="font-family: &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;;"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="w-5 h-5 mt-1"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg></div><div class="py-2 pr-4"><p>Pro Tip: In most monorepos, you don't often use environment variables in shared packages, but mostly only in applications. Thus, to get higher cache hit rates, you should likely only include environment variables in the app-specific tasks where they are used/inlined.</p></div></div>
+            <h2><span class="subheading-anchor" id="force-overwrite-cache"></span><a href="#force-overwrite-cache" class="text-current no-underline no-outline">Force overwrite cache<span class="anchor-icon" aria-hidden="true">#</span></a></h2>
+            <p>Conversely, if you want to force <code>turbo</code> to re-execute a previously cached task, add the <code>--force</code> flag:</p>
+            <div data-rehype-pretty-code-fragment="" data-nextra-code=""><pre><code data-language="shell" data-theme="default"><span class="line"><span style="color: var(--shiki-token-comment);"># Run `build` npm script in all packages and apps,</span></span>
+            <span class="line"><span style="color: var(--shiki-token-comment);"># ignoring cache hits.</span></span>
+            <span class="line"><span style="color: var(--shiki-color-text);">turbo run build --force</span></span></code></pre></div>
+            <h2><span class="subheading-anchor" id="logs"></span><a href="#logs" class="text-current no-underline no-outline">Logs<span class="anchor-icon" aria-hidden="true">#</span></a></h2>
+            <p>Not only does <code>turbo</code> cache the output of your tasks, it also records the terminal output (i.e. combined <code>stdout</code> and <code>stderr</code>) to (<code>&lt;package&gt;/.turbo/run-&lt;command&gt;.log</code>). When <code>turbo</code> encounters a cached task, it will replay the output as if it happened again, but instantly, with the package name slightly dimmed.</p>
+            <h2><span class="subheading-anchor" id="hashing"></span><a href="#hashing" class="text-current no-underline no-outline">Hashing<span class="anchor-icon" aria-hidden="true">#</span></a></h2>
+            <p>By now, you're probably wondering how <code>turbo</code> decides what constitutes a cache hit vs. miss for a given task. Good question!</p>
+            <p>First <code>turbo</code> constructs a hash of the current global state of the monorepo:</p>
+            <ul>
+            <li>The contents of any files that satisfy the glob patterns and any the values of environment variables listed in <a href="../reference/configuration#globalDependencies-1"><code>globalDependencies</code></a></li>
+            <li>The sorted list environment variable key-value pairs that includes <code>THASH</code> <em>anywhere</em> in their names (e.g. <code>STRIPE_PUBLIC_THASH_SECRET_KEY</code> but not <code>STRIPE_PUBLIC_KEY</code>)</li>
+            </ul>
+            <p>Then it adds on more factors relative to a given package's task:</p>
+            <ul>
+            <li>Hash the contents of all not-gitignored files in the package folder or the files matching the <code>inputs</code> globs, if present</li>
+            <li>The hashes of all internal dependencies</li>
+            <li>The <code>outputs</code> option specified in the <a href="../reference/configuration#pipeline"><code>pipeline</code></a></li>
+            <li>The set of resolved versions of all installed <code>dependencies</code>, <code>devDependencies</code>, and <code>optionalDependencies</code> specified in a package's <code>package.json</code> from the root lockfile</li>
+            <li>The package task's name</li>
+            <li>The sorted list of environment variable key-value pairs that correspond to the environment variable names listed in applicable <a href="../reference/configuration#dependson"><code>pipeline.&lt;task-or-package-task&gt;.dependsOn</code></a> list.</li>
+            </ul>
+            <p>Once <code>turbo</code> encounters a given package's task in its execution, it checks the cache (both locally and remotely) for a matching hash. If it's a match, it skips executing that task, moves or downloads the cached output into place and replays the previously recorded logs instantly. If there isn't anything in the cache (either locally or remotely) that matches the calculated hash, <code>turbo</code> will execute the task locally and then cache the specified <code>outputs</code> using the hash as an index.</p>
+            <p>The hash of a given task is injected at execution time as an environment variable <code>TURBO_HASH</code>. This value can be useful in stamping outputs or tagging Dockerfile etc.</p>
+          </div>
+        </div>
+        <br><br>
+
+        <Footer ...navControl/>
+      </@col>
+
+      <!-- Aside Block -->
+      <@col qs="d-none" hs="col-4" fs="col-3" ns="col-3">
+        <div.section-block.position-sticky.top-0.px-3>
+          <p.m-0.font-medium-1>On this page</p>
+          <br>
+          
+          <ul.list-unstyled>
+            <li.py-25.text-primary>Introduction</li>
+            <li.py-25.text-muted>Developer tools</li>
+            <li.py-25.text-muted>Integration API</li>
+          </ul>
+          
+          <div.divider.my-2>
+            <div.divider-text.font-small-4.text-muted>Us</div>
+          </div>
+
+          <if( feedbacks )>
+            <div>
+              <a href=feedbacks.url>${feedbacks.text}</a>
+            </div>
+            <br>
+          </if>
+
+          <if( infos )>
+            <p>
+              <if( infos.url )><a href=infos.url>${infos.text}</a></if>
+              <else>${infos.text}</else>
+            </p>
+            <br>
+          </if>
+
+          <ul.list-inline.my-1>
+            <li.px-75>
+              <a href="https://github.com/pws-hub/docdis.git">
+                <Bx.font-large-1 bxl type="github"/>
+              </a>
+            </li>
+            <li.px-75>
+              <a href="https://twitter.com/pws-hub">
+                <Bx.font-large-1 bxl type="twitter"/>
+              </a>
+            </li>
+            <li.px-75>
+              <a href="https://reddit.com/pws-hub">
+                <Bx.font-large-1 bxl type="reddit"/>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </@col>
+    </Row>
+  </div>
+</div>

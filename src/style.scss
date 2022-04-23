@@ -1,0 +1,30 @@
+
+$background: 'grey';
+
+#docdis {
+  width: 100%;
+
+  .section-block { padding: 1.7rem 0; }
+
+  .nav-li { 
+    border-radius: 4px;
+    cursor: pointer;
+
+    &:hover { background: rgba(150, 150, 180, .2) }
+    &.active { background: $background; }
+  }
+
+  .container-full { padding: 0; }
+  .container-fluid { padding: 0 6%; }
+  .container-compact { padding: 0 13%; }
+
+  .content-body {
+    h1 { font-size: 2.5rem; }
+    h2 { font-size: 1.5rem; }
+
+    code { 
+      color: inherit!important;
+      border-radius: 3px;
+    }
+  }
+}

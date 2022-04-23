@@ -1,0 +1,68 @@
+{
+  "name": "BND",
+  "theme": {
+    "name": "turbo",
+    "version": "1.0",
+    "modes": ["light", "dark", "system"],
+    "container": "fluid|compact|full"
+  },
+  "navigation": {
+    "title": "Welcome",
+    "description": "",
+    "content": "/pages/home.md",
+    "docsmap": [
+      {
+        "title": "Getting Started",
+        "description": "",
+        "path": "/getting-started",
+        "content": "/pages/getting-started.md"
+      },
+      {
+        "title": "Features",
+        "subs": [
+          {
+            "title": "Pipelines",
+            "description": "",
+            "path": "/features/pipelines",
+            "content": "/pages/features/pipelines.md"
+          },
+          {
+            "title": "Filtering Packages",
+            "description": "",
+            "path": "/features/filtering",
+            "content": "/pages/features/filtering.md"
+          }
+        ]
+      },
+      {
+        "title": "Changelog",
+        "link": "https://github.com/webmicros/BND/releases"
+      }
+    ]
+  },
+  "feedbacks": {
+    "url": "https://github.com/username/project",
+    "text": "Question, feedbacks & contributions are always welcome"
+  },
+  "infos": {
+    "url": "https://github.com/username/project#release",
+    "text": "New Release upcoming soon, stay tune."
+  },
+  "join_links": [
+    {
+      "name": "Github",
+      "icon": "image-url",
+      "link": "https://github.com/username/project"
+    },
+    {
+      "name": "Twitter",
+      "icon": "image-url",
+      "link": "https://twitter/username"
+    },
+    {
+      "name": "Reddit",
+      "icon": "image-url",
+      "link": "https://reddit.com/username"
+    }
+  ]
+}

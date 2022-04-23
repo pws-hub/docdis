@@ -1,0 +1,16 @@
+
+<ul.list-inline.m-0>
+  $ let fullpath = ''
+
+  <for|{ title, path }, index| of=input.paths>
+    $ fullpath += path
+
+    <if( index < input.paths.length - 1 )>
+      <li.text-muted
+          key=index
+          on-click( () => component.emit('navigate', fullpath ) )>${title}</li>
+      <span.text-muted.mx-50>/</span>
+    </if>
+    <else><li.text-primary>${title}</li></else>
+  </for>
+</ul>

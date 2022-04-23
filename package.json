@@ -1,0 +1,20 @@
+{
+	"name": "docdis",
+	"description": "Project documentation generator and server",
+	"version": "1.0",
+	"private": true,
+	"scripts": {
+		"start": "cd ./.sandbox && yarn start",
+		"test": "cd ./.sandbox && yarn test:dev"
+	},
+	"main": "src/index.marko",
+	"workspaces": [
+		".sandbox"
+	],
+	"dependencies": {
+		"marko": "4.24.0"
+	},
+	"author": "PWS",
+	"repository": "https://github.com/pws-hub/docdis.git",
+	"licence": "GNU"
+}

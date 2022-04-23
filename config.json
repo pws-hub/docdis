@@ -1,0 +1,22 @@
+{
+	"type": "application",
+	"name": "Docdis",
+	"namespace": "PWS",
+	"nsi": "docdis",
+	"description": "Project documentation generator and server",
+	"version": "1.0",
+	"favicon": "favicon.png",
+	"categories": [
+		"docs-generator"
+	],
+	"runscript": {
+		"*": {
+			"workspace": "fs",
+			"autoload": true
+		}
+	},
+	"author": {
+		"type": "developer",
+		"name": "PWS"
+	}
+}

@@ -1,0 +1,12 @@
+{
+  "en": {
+    "locale": "en-US",
+    "name": "English (United State)",
+    "dictionary": "en.json"
+  },
+  "fr": {
+    "locale": "fr-FR",
+    "name": "French (France)",
+    "dictionary": "fr.json"
+  }
+}
